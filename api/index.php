@@ -51,7 +51,6 @@ $app->get(
     '/products/:id',
     function ($id) use ($app, $db) {
         $app->response()->header("Content-Type", "application/json");
-        //$product = $db->products[$id];
         $product = $db->products()->where("id", $id);
         if ($product[$id]) {
             echo json_encode($product[$id], JSON_FORCE_OBJECT);
@@ -67,17 +66,36 @@ $app->get(
 
 // POST route
 $app->post(
-    '/post',
-    function () {
-        echo 'This is a POST route';
+    '/products/post',
+    function () use($app, $db) {
+        $app->response()->header("Content-Type", "application/json");
+        $post = $app->request()->post();
+        $body = $app->request->getBody();
+        $result = $db->products->insert(json_decode($body, true));
+        echo json_encode($body);
     }
 );
 
 // PUT route
 $app->put(
-    '/put',
-    function () {
-        echo 'This is a PUT route';
+    '/products/:id',
+    function ($id) use($app, $db) {
+      $app->response()->header("Content-Type", "application/json");
+      $product = $db->products()->where("id", $id);
+      if ($product[$id]) {
+        $post = $app->request()->put();
+        $body = $app->request->getBody();
+        $result = $product->update(json_decode($body, true));
+        echo json_encode(array(
+          "status" => (bool)$result,
+          "message" => "Product updated successfully."), 
+            JSON_FORCE_OBJECT);
+      } else {
+        echo json_encode(array(
+          "status" => false,
+          "message" => "Product ID $id does not exist."),               
+              JSON_FORCE_OBJECT);
+      }
     }
 );
 
@@ -88,9 +106,22 @@ $app->patch('/patch', function () {
 
 // DELETE route
 $app->delete(
-    '/delete',
-    function () {
-        echo 'This is a DELETE route';
+    '/products/:id',
+    function ($id) use ($app, $db) {
+        $app->response()->header("Content-Type", "application/json");
+        $product = $db->products()->where("id", $id);
+        if ($product[$id]) {
+          $result = $product->delete();
+          echo json_encode(array(
+            "status" => true,
+            "message" => "Product deleted successfully."), 
+              JSON_FORCE_OBJECT);
+        } else {
+          echo json_encode(array(
+            "status" => false,
+            "message" => "Delete failed. Product ID $id does not exist."),
+              JSON_FORCE_OBJECT);
+        }
     }
 );
 

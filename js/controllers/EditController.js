@@ -10,14 +10,12 @@ app.controller('EditController', ['$scope','$location', '$routeParams', 'Product
       });
           
     $scope.editProduct = function() {
-        $scope.product.$save({
-            sku: $scope.product.sku,
-            description: $scope.product.description,
-            price: $scope.product.price
+        $scope.product.$update(function (){
+          $scope.edit_form.$setPristine();
+          $scope.product = {};
+          $location.path('/products');
+          
         });
-        $scope.edit_form.$setPristine();
-        $scope.product = {};
-        $location.path('/products');
         
     };
      

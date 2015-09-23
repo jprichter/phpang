@@ -13,7 +13,7 @@
       <td>{{product.sku}}</td>
       <td>{{product.description}}</td>
       <td>{{product.price | currency}}</td>
-	  <td><a href="#/edit/{{product.id}}" class="btn btn-small btn-primary">Edit</a> <a class="btn btn-small btn-danger" ng-click="removeProduct(product.$id)">Delete</a></td>
+	  <td><a href="#/edit/{{product.id}}" class="btn btn-small btn-primary">Edit</a> <a class="btn btn-small btn-danger" ng-click="removeProduct(product.id); remove($index)">Delete</a></td>
 	  
     </tr>
   </tbody>
