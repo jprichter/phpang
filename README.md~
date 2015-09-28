@@ -1,0 +1,18 @@
+# PHPANG
+
+A SLIM php webservice, consumed by AngularJS.
+
+### Installation
+
+1. Clone this repo
+`git clone https://github.com/jprichter/phpang`
+
+2. Install Dependencies
+    
+    cd phpang/api
+    composer install
+
+3. Load Sample Data from `phpang/api/db/schema.sql`.
+
+4. Go to localhost/phpang
+
