@@ -2,10 +2,8 @@
 /**
  * requires 
  */
-require 'Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
+require 'vendor/autoload.php';
 require 'db/config.php';
-require 'db/NotORM.php';
 
 /**
  * db stuff
